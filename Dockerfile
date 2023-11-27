@@ -15,7 +15,7 @@ RUN ls -alt
 FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=builder /app/dist .
+COPY --chown=101:101 --from=builder /app/dist .
 RUN ls -alt
 RUN    apk add --no-cache libcap \
         && touch /var/run/nginx.pid \
