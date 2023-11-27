@@ -13,5 +13,11 @@ FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 COPY --from=builder /app/dist .
+RUN    apk add --no-cache libcap \
+        && touch /var/run/nginx.pid \
+        && chown -R nginx:nginx /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d \
+        && chmod -R 777 /var/cache/ /var/run /var/run/nginx.pid \
+        && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
+USER nginx
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
