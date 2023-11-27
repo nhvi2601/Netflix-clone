@@ -21,7 +21,9 @@ RUN    apk add --no-cache libcap \
         && touch /var/run/nginx.pid \
         && chown -R 101:101 /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d \
         && chmod -R 777 /var/cache/ /var/run /var/run/nginx.pid \
-        && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
+        && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx 
+RUN chown -R 101:101 /usr/share/nginx/html
+RUN ls -alt 
 USER nginx
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
