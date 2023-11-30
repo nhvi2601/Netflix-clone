@@ -1,10 +1,10 @@
 FROM node:16.17.0-alpine as builder
 WORKDIR /app
-COPY ./package.json .
-COPY ./yarn.lock .
+COPY chown=101:101 ./package.json .
+COPY chown=101:101 ./yarn.lock .
 RUN yarn install
 RUN ls -alt
-COPY . .
+COPY chown=101:101 . .
 RUN ls -alt
 ARG TMDB_V3_API_KEY
 ENV VITE_APP_TMDB_V3_API_KEY=${TMDB_V3_API_KEY}
