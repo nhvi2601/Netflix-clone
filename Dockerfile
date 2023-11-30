@@ -25,7 +25,7 @@ ENV VITE_APP_API_ENDPOINT_URL="https://api.themoviedb.org/3"
 RUN yarn build
 
 # Change ownership of files in the app directory
-ls -alt
+RUN ls -alt
 
 # Use Nginx Debian image as the production stage
 FROM nginx:stable
@@ -49,8 +49,7 @@ RUN apt-get update && apt-get install -y libcap2-bin \
     && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx 
 
 # Change ownership of files in the Nginx HTML directory
-RUN chown -R 101:101 /usr/share/nginx/html
-
+RUN ls -alt
 # Switch to the 'nginx' user
 USER nginx
 
