@@ -1,16 +1,16 @@
 FROM node:16.17.0-alpine as builder
 WORKDIR /app
-COPY chown=101:101 ./package.json .
-COPY chown=101:101 ./yarn.lock .
+COPY --chown=101:101 ./package.json .
+COPY --chown=101:101 ./yarn.lock .
 RUN yarn install
 RUN ls -alt
-COPY chown=101:101 . .
+COPY --chown=101:101 . .
 RUN ls -alt
 ARG TMDB_V3_API_KEY
 ENV VITE_APP_TMDB_V3_API_KEY=${TMDB_V3_API_KEY}
 ENV VITE_APP_API_ENDPOINT_URL="https://api.themoviedb.org/3"
 RUN yarn build
-RUN chown -R 101:101 /app 
+RUN --chown -R 101:101 /app 
 FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
