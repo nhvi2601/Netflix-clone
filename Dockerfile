@@ -43,9 +43,9 @@ RUN ls -alt
 
 # Install necessary packages, set permissions, and capabilities for Nginx
 RUN apt-get update && apt-get install -y libcap2-bin \
-    && touch /var/run/nginx.pid \
-    && chown -R 101:101 /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d \
-    && chmod -R 777 /var/cache/ /var/run /var/run/nginx.pid \
+    && touch /var/run/nginx.pid 
+RUN chown -R 101:101 /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d 
+RUN chmod -R 777 /var/cache/ /var/run /var/run/nginx.pid \
     && setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx 
 
 # Change ownership of files in the Nginx HTML directory
