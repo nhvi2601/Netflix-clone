@@ -4,8 +4,8 @@ FROM node:16.17.0 as builder
 WORKDIR /app
 
 # Copy package.json and yarn.lock to the working directory
-COPY --chown=101:101 ./package.json .
-COPY --chown=101:101 ./yarn.lock .
+COPY  ./package.json .
+COPY  ./yarn.lock .
 
 # Install dependencies
 RUN yarn install
@@ -14,7 +14,7 @@ RUN yarn install
 RUN ls -alt
 
 # Copy project files to the working directory
-COPY --chown=101:101 . .
+COPY . .
 
 # Set build arguments and environment variables
 ARG TMDB_V3_API_KEY
@@ -25,7 +25,7 @@ ENV VITE_APP_API_ENDPOINT_URL="https://api.themoviedb.org/3"
 RUN yarn build
 
 # Change ownership of files in the app directory
-RUN chown -R 101:101 /app 
+ls -alt
 
 # Use Nginx Debian image as the production stage
 FROM nginx:stable
