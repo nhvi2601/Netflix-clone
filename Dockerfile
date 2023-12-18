@@ -9,7 +9,7 @@ COPY  ./yarn.lock .
 
 # Install dependencies
 RUN yarn install
-
+A
 # Show files in directory (optional)
 RUN ls -alt
 
